@@ -1,0 +1,506 @@
+[
+  {
+    "id": "hut",
+    "stage": 1,
+    "levelRange": "1–2",
+    "name": "小木屋",
+    "file": "hut-lv1.obj",
+    "footprint": {
+      "width": 2.7,
+      "depth": 2.5
+    },
+    "meshes": 18,
+    "vertices": 984,
+    "size": [
+      2.700000047683716,
+      1.950000047981739,
+      2.5
+    ]
+  },
+  {
+    "id": "hut",
+    "stage": 2,
+    "levelRange": "3–5",
+    "name": "双户小院",
+    "file": "hut-lv2.obj",
+    "footprint": {
+      "width": 3.7,
+      "depth": 3.25
+    },
+    "meshes": 21,
+    "vertices": 2256,
+    "size": [
+      3.700000047683716,
+      1.700000047981739,
+      3.25
+    ]
+  },
+  {
+    "id": "hut",
+    "stage": 3,
+    "levelRange": "6–7",
+    "name": "花园联排屋",
+    "file": "hut-lv3.obj",
+    "footprint": {
+      "width": 4.75,
+      "depth": 4.05
+    },
+    "meshes": 31,
+    "vertices": 3912,
+    "size": [
+      4.75,
+      2.2500000002980234,
+      4.050000190734863
+    ]
+  },
+  {
+    "id": "hut",
+    "stage": 4,
+    "levelRange": "8+",
+    "name": "精品住区",
+    "file": "hut-lv4.obj",
+    "footprint": {
+      "width": 5.75,
+      "depth": 4.9
+    },
+    "meshes": 35,
+    "vertices": 4416,
+    "size": [
+      5.75,
+      2.6700000765919687,
+      4.900000095367432
+    ]
+  },
+  {
+    "id": "cafe",
+    "stage": 1,
+    "levelRange": "1–2",
+    "name": "街角咖啡店",
+    "file": "cafe-lv1.obj",
+    "footprint": {
+      "width": 2.65,
+      "depth": 2.45
+    },
+    "meshes": 19,
+    "vertices": 1596,
+    "size": [
+      2.6500000953674316,
+      1.50999999076128,
+      2.625
+    ]
+  },
+  {
+    "id": "cafe",
+    "stage": 2,
+    "levelRange": "3–5",
+    "name": "花园咖啡馆",
+    "file": "cafe-lv2.obj",
+    "footprint": {
+      "width": 3.05,
+      "depth": 2.85
+    },
+    "meshes": 22,
+    "vertices": 2376,
+    "size": [
+      3.049999952316284,
+      1.5900000336766242,
+      2.875
+    ]
+  },
+  {
+    "id": "cafe",
+    "stage": 3,
+    "levelRange": "6–7",
+    "name": "玻璃茶屋",
+    "file": "cafe-lv3.obj",
+    "footprint": {
+      "width": 3.45,
+      "depth": 3.1
+    },
+    "meshes": 28,
+    "vertices": 3984,
+    "size": [
+      3.450000047683716,
+      2.4475975039601328,
+      3.184999942779541
+    ]
+  },
+  {
+    "id": "cafe",
+    "stage": 4,
+    "levelRange": "8+",
+    "name": "精致咖啡会馆",
+    "file": "cafe-lv4.obj",
+    "footprint": {
+      "width": 3.85,
+      "depth": 3.45
+    },
+    "meshes": 30,
+    "vertices": 5196,
+    "size": [
+      3.8499999046325684,
+      2.529999971687794,
+      3.475000023841858
+    ]
+  },
+  {
+    "id": "farm",
+    "stage": 1,
+    "levelRange": "1–2",
+    "name": "家庭农田",
+    "file": "farm-lv1.obj",
+    "footprint": {
+      "width": 3,
+      "depth": 2.8
+    },
+    "meshes": 11,
+    "vertices": 2136,
+    "size": [
+      3.1174999475479126,
+      2.0499999526143076,
+      2.799999952316284
+    ]
+  },
+  {
+    "id": "farm",
+    "stage": 2,
+    "levelRange": "3–5",
+    "name": "谷仓农场",
+    "file": "farm-lv2.obj",
+    "footprint": {
+      "width": 5,
+      "depth": 4.1
+    },
+    "meshes": 19,
+    "vertices": 9906,
+    "size": [
+      5,
+      2.460000038444996,
+      4.099999904632568
+    ]
+  },
+  {
+    "id": "farm",
+    "stage": 3,
+    "levelRange": "6–7",
+    "name": "温室农业园",
+    "file": "farm-lv3.obj",
+    "footprint": {
+      "width": 6.75,
+      "depth": 5.45
+    },
+    "meshes": 26,
+    "vertices": 28632,
+    "size": [
+      6.75,
+      2.7349998953938486,
+      5.449999809265137
+    ]
+  },
+  {
+    "id": "farm",
+    "stage": 4,
+    "levelRange": "8+",
+    "name": "金穗大农庄",
+    "file": "farm-lv4.obj",
+    "footprint": {
+      "width": 8.5,
+      "depth": 6.75
+    },
+    "meshes": 29,
+    "vertices": 35496,
+    "size": [
+      8.5,
+      3.1649999621510507,
+      6.75
+    ]
+  },
+  {
+    "id": "mine",
+    "stage": 1,
+    "levelRange": "1–2",
+    "name": "露天矿坑",
+    "file": "mine-lv1.obj",
+    "footprint": {
+      "width": 3,
+      "depth": 2.7
+    },
+    "meshes": 12,
+    "vertices": 1356,
+    "size": [
+      3,
+      1.600000024139881,
+      2.7325000762939453
+    ]
+  },
+  {
+    "id": "mine",
+    "stage": 2,
+    "levelRange": "3–5",
+    "name": "轨道矿场",
+    "file": "mine-lv2.obj",
+    "footprint": {
+      "width": 4.75,
+      "depth": 3.75
+    },
+    "meshes": 24,
+    "vertices": 4056,
+    "size": [
+      4.75,
+      2.6199998858571054,
+      3.75
+    ]
+  },
+  {
+    "id": "mine",
+    "stage": 3,
+    "levelRange": "6–7",
+    "name": "钢铁采掘站",
+    "file": "mine-lv3.obj",
+    "footprint": {
+      "width": 6.25,
+      "depth": 4.95
+    },
+    "meshes": 28,
+    "vertices": 7824,
+    "size": [
+      6.25,
+      3.6700000765919687,
+      4.949999809265137
+    ]
+  },
+  {
+    "id": "mine",
+    "stage": 4,
+    "levelRange": "8+",
+    "name": "重型冶炼基地",
+    "file": "mine-lv4.obj",
+    "footprint": {
+      "width": 7.9,
+      "depth": 6.15
+    },
+    "meshes": 34,
+    "vertices": 14496,
+    "size": [
+      7.900000095367432,
+      4.5700001719594,
+      6.150000095367432
+    ]
+  },
+  {
+    "id": "bakery",
+    "stage": 1,
+    "levelRange": "1–2",
+    "name": "街角面包屋",
+    "file": "bakery-lv1.obj",
+    "footprint": {
+      "width": 2.7,
+      "depth": 2.5
+    },
+    "meshes": 15,
+    "vertices": 1008,
+    "size": [
+      2.700000047683716,
+      1.8899999859929084,
+      2.5
+    ]
+  },
+  {
+    "id": "bakery",
+    "stage": 2,
+    "levelRange": "3–5",
+    "name": "双炉工房",
+    "file": "bakery-lv2.obj",
+    "footprint": {
+      "width": 3.5,
+      "depth": 3.05
+    },
+    "meshes": 19,
+    "vertices": 1608,
+    "size": [
+      3.5,
+      1.8300000432133674,
+      3.049999952316284
+    ]
+  },
+  {
+    "id": "bakery",
+    "stage": 3,
+    "levelRange": "6–7",
+    "name": "精品烘焙坊",
+    "file": "bakery-lv3.obj",
+    "footprint": {
+      "width": 4.45,
+      "depth": 3.75
+    },
+    "meshes": 30,
+    "vertices": 2928,
+    "size": [
+      4.449999809265137,
+      2.1800000670552255,
+      3.75
+    ]
+  },
+  {
+    "id": "bakery",
+    "stage": 4,
+    "levelRange": "8+",
+    "name": "大师面包坊",
+    "file": "bakery-lv4.obj",
+    "footprint": {
+      "width": 5.5,
+      "depth": 4.55
+    },
+    "meshes": 40,
+    "vertices": 4404,
+    "size": [
+      5.5,
+      2.710000038444996,
+      4.550000190734863
+    ]
+  },
+  {
+    "id": "bank",
+    "stage": 1,
+    "levelRange": "1–2",
+    "name": "社区金库",
+    "file": "bank-lv1.obj",
+    "footprint": {
+      "width": 2.75,
+      "depth": 2.5
+    },
+    "meshes": 12,
+    "vertices": 696,
+    "size": [
+      2.75,
+      1.7699999812245368,
+      2.5
+    ]
+  },
+  {
+    "id": "bank",
+    "stage": 2,
+    "levelRange": "3–5",
+    "name": "石柱银行",
+    "file": "bank-lv2.obj",
+    "footprint": {
+      "width": 3.65,
+      "depth": 3.05
+    },
+    "meshes": 19,
+    "vertices": 2172,
+    "size": [
+      3.6500000953674316,
+      2.1900000575184824,
+      3.049999952316284
+    ]
+  },
+  {
+    "id": "bank",
+    "stage": 3,
+    "levelRange": "6–7",
+    "name": "翡翠金融馆",
+    "file": "bank-lv3.obj",
+    "footprint": {
+      "width": 4.75,
+      "depth": 3.9
+    },
+    "meshes": 25,
+    "vertices": 3228,
+    "size": [
+      4.75,
+      2.700000047981739,
+      3.9000000953674316
+    ]
+  },
+  {
+    "id": "bank",
+    "stage": 4,
+    "levelRange": "8+",
+    "name": "中央金库广场",
+    "file": "bank-lv4.obj",
+    "footprint": {
+      "width": 5.75,
+      "depth": 4.85
+    },
+    "meshes": 32,
+    "vertices": 4908,
+    "size": [
+      5.75,
+      3.019999981224537,
+      4.849999904632568
+    ]
+  },
+  {
+    "id": "tower",
+    "stage": 1,
+    "levelRange": "1–2",
+    "name": "海岸信标",
+    "file": "tower-lv1.obj",
+    "footprint": {
+      "width": 2.8,
+      "depth": 2.6
+    },
+    "meshes": 7,
+    "vertices": 1056,
+    "size": [
+      2.799999952316284,
+      2.900000095665455,
+      2.5999999046325684
+    ]
+  },
+  {
+    "id": "tower",
+    "stage": 2,
+    "levelRange": "3–5",
+    "name": "港口灯塔",
+    "file": "tower-lv2.obj",
+    "footprint": {
+      "width": 3.8,
+      "depth": 3.3
+    },
+    "meshes": 12,
+    "vertices": 1896,
+    "size": [
+      3.799999952316284,
+      2.900000095665455,
+      3.309999942779541
+    ]
+  },
+  {
+    "id": "tower",
+    "stage": 3,
+    "levelRange": "6–7",
+    "name": "航海观测站",
+    "file": "tower-lv3.obj",
+    "footprint": {
+      "width": 5,
+      "depth": 4.3
+    },
+    "meshes": 16,
+    "vertices": 3528,
+    "size": [
+      5,
+      4.5300002101063725,
+      4.300000190734863
+    ]
+  },
+  {
+    "id": "tower",
+    "stage": 4,
+    "levelRange": "8+",
+    "name": "双港航标区",
+    "file": "tower-lv4.obj",
+    "footprint": {
+      "width": 6.45,
+      "depth": 5.55
+    },
+    "meshes": 20,
+    "vertices": 6108,
+    "size": [
+      6.449999809265137,
+      4.5300002101063725,
+      5.550000190734863
+    ]
+  }
+]

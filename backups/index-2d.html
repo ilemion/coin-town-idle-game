@@ -1,0 +1,329 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+  <meta name="theme-color" content="#f7edd7">
+  <title>金币小镇</title>
+  <style>
+    :root{--ink:#463521;--muted:#927e62;--paper:#fffaf0;--line:#ead9b8;--green:#5fa769;--gold:#f3b739}
+    *{box-sizing:border-box}body{margin:0;background:#f7edd7;color:var(--ink);font-family:system-ui,"Microsoft YaHei",sans-serif;background-image:radial-gradient(#e4d4b3 1px,transparent 1px);background-size:19px 19px}button{font:inherit;cursor:pointer}button:focus-visible{outline:3px solid #326fb7;outline-offset:2px}
+    .app{width:min(100%,480px);min-height:100vh;margin:auto;padding:14px 14px 42px}.top{display:flex;justify-content:space-between;align-items:center;margin-bottom:13px}.brand{display:flex;align-items:center;gap:9px;font-size:17px;font-weight:900}.brand-logo{width:38px;height:38px;display:grid;place-items:center;border-radius:12px;background:#e77451;color:white;box-shadow:0 4px #be5539;font-size:21px}.tag{padding:7px 10px;border:1px solid var(--line);border-radius:30px;background:var(--paper);font-size:11px;color:var(--muted);font-weight:800}
+    .scene-wrap{position:relative;overflow:hidden;height:305px;border:3px solid #795839;border-radius:22px;background:linear-gradient(#9fd6e6,#a9deea 48%,#8bc875 48%);box-shadow:0 5px #d6c09d,0 10px 20px #6a4b211f}canvas{display:block;width:100%;height:100%;touch-action:manipulation}.scene-tip{position:absolute;left:50%;bottom:9px;transform:translateX(-50%);white-space:nowrap;padding:5px 11px;border:2px solid #77563a;border-radius:12px;background:#fff7e7;box-shadow:0 3px #d3bd96;font-size:11px;font-weight:900;pointer-events:none}.pop{position:absolute;z-index:5;color:#fff;text-shadow:0 2px 1px #98551c,1px 0 #98551c,-1px 0 #98551c;font-size:20px;font-weight:900;pointer-events:none;animation:rise .8s ease-out forwards}@keyframes rise{to{transform:translateY(-72px);opacity:0}}
+    .wallet{margin-top:13px;padding:14px;border:2px solid var(--line);border-radius:18px;background:var(--paper);box-shadow:0 4px #d8c6a2}.wallet-top{display:flex;align-items:center;justify-content:space-between}.eyebrow{font-size:10px;letter-spacing:1px;font-weight:900;color:#a18a66}.balance{font-size:29px;font-weight:950;line-height:1.16;font-variant-numeric:tabular-nums}.rate{padding:6px 8px;background:#e8f6e5;border-radius:9px;color:#509657;font-size:11px;font-weight:900}.coins{display:grid;grid-template-columns:repeat(3,1fr);gap:7px;margin-top:13px}.denom{min-width:0;display:flex;align-items:center;gap:6px;padding:6px;background:#f8efd9;border-radius:10px}.medal{--bright:#ffe78d;--base:#ecae31;--dark:#a96d1a;position:relative;display:grid;place-items:center;flex:none;width:31px;height:31px;border:3px solid var(--dark);border-radius:50%;background:radial-gradient(circle at 30% 23%,var(--bright),var(--base) 53%,var(--dark));box-shadow:inset 0 0 0 2px #fff6,0 3px 0 #7c562b55;color:#6c451a;font-size:9px;font-weight:950;line-height:1}.medal:after{content:"";position:absolute;inset:3px;border:1px dashed currentColor;border-radius:inherit;opacity:.55}.m10{--bright:#ffd3bf;--base:#ea8070;--dark:#a8463d;border-radius:9px;transform:rotate(-8deg)}.m100{--bright:#b7f1ce;--base:#51bf92;--dark:#258265;clip-path:polygon(50% 0,96% 25%,96% 75%,50% 100%,4% 75%,4% 25%);border:0;color:#f5fff7}.m1000{--bright:#d7e2ff;--base:#8297e5;--dark:#4358a5;border-radius:12px 12px 50% 50%;color:#f5f7ff}.m10000{--bright:#fff0aa;--base:#efb544;--dark:#ad731d;clip-path:polygon(50% 0,62% 13%,81% 5%,84% 25%,100% 37%,87% 53%,97% 73%,76% 78%,68% 100%,50% 87%,32% 100%,24% 78%,3% 73%,13% 53%,0 37%,16% 25%,19% 5%,38% 13%);border:0;color:#fff6dd}.m100000{--bright:#ead8ff;--base:#9970d8;--dark:#493183;border:4px double var(--dark);color:#fff4ff}.denom-info{min-width:0}.denom-name{font-size:9px;font-weight:900;white-space:nowrap}.denom-count{font-size:12px;font-weight:950;color:#9a7750}.hint{margin:9px 1px 0;color:#aa9779;font-size:10px}.collect{width:100%;margin-top:12px;padding:12px;border:2px solid #c98a26;border-radius:13px;background:linear-gradient(#ffdc72,#f3af37);box-shadow:0 4px #c78a23;font-size:14px;font-weight:950;color:#543815}.collect:active,.buy:active{transform:translateY(2px);box-shadow:none}
+    .heading{display:flex;align-items:end;justify-content:space-between;margin:21px 2px 10px}.heading strong{font-size:16px}.heading small{font-size:10px;color:var(--muted);font-weight:800}.list{display:grid;gap:9px}.card{display:flex;align-items:center;gap:9px;min-height:70px;padding:9px;border:2px solid var(--line);border-radius:15px;background:var(--paper);box-shadow:0 3px #d8c6a2}.icon{display:grid;place-items:center;flex:none;width:44px;height:44px;border-radius:12px;background:#f3e6ca;font-size:24px}.details{min-width:0;flex:1}.name{font-size:12px;font-weight:950;white-space:nowrap}.level{margin-left:5px;padding:2px 5px;border-radius:6px;background:#eee5d0;color:#977e5e;font-size:9px}.output{margin-top:4px;color:#9d896b;font-size:10px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.buy{flex:none;min-width:88px;padding:8px 6px;border:0;border-radius:10px;background:#68a96b;box-shadow:0 3px #4d8150;color:white;font-size:10px;font-weight:900}.buy span{display:block;margin-top:2px;font-size:11px}.buy.cant{background:#b6aa94;box-shadow:0 3px #928673}.footer{display:flex;justify-content:space-between;align-items:center;margin:17px 2px;color:#aa987c;font-size:10px}.reset{padding:5px 8px;border:1px solid var(--line);border-radius:8px;background:transparent;color:#a18c6c;font-size:10px}.toast{position:fixed;z-index:20;left:50%;bottom:22px;transform:translate(-50%,12px);max-width:min(90vw,420px);padding:10px 15px;border-radius:22px;background:#4e3924;color:white;box-shadow:0 5px 15px #0003;font-size:12px;font-weight:800;white-space:nowrap;opacity:0;pointer-events:none;transition:.2s}.toast.show{transform:translate(-50%,0);opacity:1}
+    /* The whole game board uses a 16:9 frame in landscape. */
+    body{min-height:100dvh;display:grid;place-items:center}
+    .app{width:min(100vw,177.7778dvh,1440px);min-height:0;aspect-ratio:16/9;padding:12px 16px;display:grid;grid-template-columns:minmax(0,1.38fr) minmax(310px,1fr);grid-template-rows:auto minmax(0,1fr) auto;column-gap:16px;row-gap:10px;overflow:hidden;background:#f7edd7}
+    .top{grid-column:1/-1;margin:0}.top-actions{display:flex;align-items:center;gap:8px}.sound-toggle{padding:7px 11px;border:1px solid var(--line);border-radius:30px;background:var(--paper);color:var(--ink);font-size:11px;font-weight:900}.sound-toggle.off{color:#9b8d79}.denom-name,.denom-count{display:block}
+    .left{display:grid;grid-template-rows:minmax(0,1fr) auto;min-height:0;gap:10px}.scene-wrap{height:auto;min-height:0;margin:0}.wallet{margin:0;padding:10px 12px}.balance{font-size:26px}.coins{grid-template-columns:repeat(6,minmax(0,1fr));gap:5px;margin-top:8px}.denom{display:grid;justify-items:center;gap:3px;padding:5px 2px;border:1px solid transparent;background:#f8efd9;color:var(--ink);text-align:center;box-shadow:none}.denom:hover,.denom:focus-visible{border-color:#dba64d;background:#fff3cf}.denom-info{width:100%}.denom-name{font-size:9px}.denom-count{font-size:11px}.hint{margin-top:6px}.collect{margin-top:7px;padding:9px}.right{display:grid;grid-template-rows:auto minmax(0,1fr);min-height:0}.heading{margin:2px 2px 9px}.list{min-height:0;overflow:auto;overscroll-behavior:contain;padding:0 4px 5px 0;scrollbar-color:#d1bb93 transparent}.card{min-height:0;padding:7px 9px;gap:8px}.icon{border:0;cursor:pointer;flex:none}.icon:hover,.icon:focus-visible{background:#ffe2a5}.footer{grid-column:1/-1;margin:0 2px}.toast{bottom:28px}
+    @media(max-width:900px) and (orientation:landscape){.app{padding:8px 10px;gap:7px;grid-template-columns:minmax(0,1.25fr) minmax(290px,1fr)}.brand{font-size:14px}.scene-wrap{border-radius:16px}.wallet{padding:7px 9px}.coins{margin-top:5px}.medal{width:26px;height:26px;font-size:7px}.denom-name{font-size:8px}.denom-count{font-size:10px}.hint{display:none}.collect{padding:6px;font-size:11px}.heading{margin-bottom:5px}.card{padding:5px 7px}.icon{width:35px;height:35px;font-size:19px}.name{font-size:11px}.output{font-size:9px}.buy{padding:5px;min-width:75px}}
+    @media(orientation:portrait){body{display:block}.app{width:min(100%,520px);min-height:100dvh;aspect-ratio:auto;display:block;padding:12px 12px 32px;overflow:visible}.top{margin-bottom:12px}.left,.right{display:block}.scene-wrap{width:100%;aspect-ratio:16/9;height:auto}.wallet{margin-top:10px;padding:12px}.coins{grid-template-columns:repeat(3,1fr);gap:7px}.denom{display:flex;text-align:left;justify-items:initial;gap:6px;padding:6px}.medal{width:31px;height:31px;font-size:9px}.denom-name{font-size:9px}.denom-count{font-size:12px}.hint{display:block}.collect{padding:11px;font-size:13px}.right{margin-top:18px}.heading{margin-bottom:9px}.list{overflow:visible;padding:0}.card{min-height:68px;padding:8px}.icon{width:44px;height:44px;font-size:23px}.footer{margin-top:18px}.toast{bottom:22px}}
+  </style>
+</head>
+<body>
+<main class="app">
+  <header class="top"><div class="brand"><span class="brand-logo">🏡</span>金币小镇</div><div class="top-actions"><span class="tag">☀️ 放置经营</span><button class="sound-toggle" id="soundToggle" aria-pressed="true">🔊 音效开</button></div></header>
+  <div class="left">
+  <section class="scene-wrap" id="scene"><canvas id="town" aria-label="可点击收集金币的立体小镇"></canvas><div class="scene-tip">点击小镇，也能收集金币</div></section>
+  <section class="wallet">
+    <div class="wallet-top"><div><div class="eyebrow">金币总资产</div><div class="balance" id="balance">0</div></div><div class="rate" id="rate">+0 / 秒</div></div>
+    <div class="coins" id="coins"></div>
+    <p class="hint">点击金币试听专属音效 · 金币按面值自动换算</p>
+    <button class="collect" id="collect">🪙 点击收集金币 +1</button>
+  </section>
+  </div>
+  <div class="right">
+  <div class="heading"><strong>🏗️ 小镇建筑</strong><small>建造并升级，持续产币</small></div>
+  <section class="list" id="buildings"></section>
+  </div>
+  <div class="footer"><span>离线收益最多累计 8 小时</span><button class="reset" id="reset">重新开始</button></div>
+</main>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+<script>
+(() => {
+  'use strict';
+  const KEY = 'coinTownSave';
+  const defs = [
+    {id:'hut',name:'叮当小屋',icon:'🏠',base:10,rate:1,roof:'#e66d50',wall:'#f1cd84',x:210,y:179,kind:'house'},
+    {id:'cafe',name:'月桂咖啡馆',icon:'☕',base:60,rate:6,roof:'#8a79bf',wall:'#f1d99d',x:132,y:145,kind:'cafe'},
+    {id:'farm',name:'金穗农场',icon:'🌾',base:300,rate:30,roof:'#bb7248',wall:'#ead49a',x:280,y:137,kind:'farm'},
+    {id:'mine',name:'琥珀矿洞',icon:'⛏️',base:1600,rate:150,roof:'#727d9c',wall:'#bdc0cb',x:94,y:207,kind:'mine'},
+    {id:'bakery',name:'云朵面包坊',icon:'🥐',base:8000,rate:760,roof:'#e4a94f',wall:'#f2d495',x:286,y:210,kind:'bakery'},
+    {id:'bank',name:'翡翠金库',icon:'🏦',base:42000,rate:3900,roof:'#5eafa2',wall:'#e9dda8',x:350,y:174,kind:'bank'},
+    {id:'tower',name:'月光灯塔',icon:'🗼',base:220000,rate:21000,roof:'#e6655d',wall:'#f5ecd6',x:204,y:111,kind:'tower'}
+  ];
+  const denominations=[
+    {value:1,label:'铜币',text:'1'}, {value:10,label:'赤铜',text:'10'},
+    {value:100,label:'翡翠',text:'100'}, {value:1000,label:'星耀',text:'1K'},
+    {value:10000,label:'太阳',text:'10K'}, {value:100000,label:'月辉',text:'100K'}
+  ];
+  const coinSounds={
+    1:{pitch:1120,decay:.17,bounces:2,gap:.075,brightness:1.1},
+    10:{pitch:850,decay:.22,bounces:2,gap:.105,brightness:.9},
+    100:{pitch:1250,decay:.28,bounces:3,gap:.095,brightness:1.25},
+    1000:{pitch:680,decay:.34,bounces:3,gap:.13,brightness:.85},
+    10000:{pitch:940,decay:.43,bounces:3,gap:.17,brightness:1.1},
+    100000:{pitch:510,decay:.57,bounces:4,gap:.18,brightness:.7}
+  };
+  const buildingSounds={
+    hut:{wave:'triangle',notes:[[392,0,.12],[523,.13,.17]]},
+    cafe:{wave:'sine',notes:[[659,0,.10],[784,.10,.10],[988,.20,.18]]},
+    farm:{wave:'triangle',notes:[[330,0,.11],[392,.10,.11],[523,.20,.20]]},
+    mine:{wave:'square',notes:[[196,0,.07],[147,.09,.11],[294,.21,.20]]},
+    bakery:{wave:'sine',notes:[[523,0,.09],[659,.08,.09],[784,.16,.09],[1047,.24,.18]]},
+    bank:{wave:'triangle',notes:[[392,0,.17],[587,.14,.17],[880,.29,.24]]},
+    tower:{wave:'sine',notes:[[440,0,.22],[880,.16,.22],[1320,.34,.28]]}
+  };
+  const el=id=>document.getElementById(id);
+  let audioContext=null,soundOn=true;
+  try{soundOn=localStorage.getItem('coinTownSound')!=='off'}catch{}
+  function syncSoundButton(){const button=el('soundToggle');button.textContent=soundOn?'🔊 音效开':'🔇 音效关';button.classList.toggle('off',!soundOn);button.setAttribute('aria-pressed',String(soundOn))}
+  function withAudio(callback){
+    if(!soundOn)return;
+    try{
+      const Audio=window.AudioContext||window.webkitAudioContext;
+      if(!Audio)return;
+      audioContext ||= new Audio();
+      if(audioContext.state==='suspended')audioContext.resume().then(()=>callback(audioContext)).catch(()=>{});
+      else callback(audioContext);
+    }catch{}
+  }
+  function playSound(profile){
+    if(!profile)return;
+    withAudio(audio=>{
+      try{
+        const start=audio.currentTime+.01;
+        for(const [frequency,delay,duration] of profile.notes){
+          const oscillator=audio.createOscillator(),gain=audio.createGain();
+          oscillator.type=profile.wave;oscillator.frequency.setValueAtTime(frequency,start+delay);
+          gain.gain.setValueAtTime(.0001,start+delay);
+          gain.gain.exponentialRampToValueAtTime(profile.wave==='square' ? 0.035 : 0.075,start+delay+.012);
+          gain.gain.exponentialRampToValueAtTime(.0001,start+delay+duration);
+          oscillator.connect(gain);gain.connect(audio.destination);
+          oscillator.start(start+delay);oscillator.stop(start+delay+duration+.02);
+        }
+      }catch{}
+    });
+  }
+  function playCoin(value){
+    const profile=coinSounds[value];if(!profile)return;
+    withAudio(audio=>{
+      try{
+        const start=audio.currentTime+.01;
+        const ratios=[1,2.73,5.31,8.42];
+        for(let bounce=0;bounce<profile.bounces;bounce++){
+          const when=start+bounce*profile.gap;
+          const strength=Math.pow(.49,bounce);
+          const length=profile.decay*Math.pow(.72,bounce);
+          ratios.forEach((ratio,index)=>{
+            const oscillator=audio.createOscillator(),gain=audio.createGain();
+            const frequency=Math.min(12000,profile.pitch*ratio*(1+bounce*.012));
+            oscillator.type='sine';oscillator.frequency.setValueAtTime(frequency,when);
+            oscillator.frequency.exponentialRampToValueAtTime(frequency*.965,when+length);
+            gain.gain.setValueAtTime(.0001,when);
+            gain.gain.exponentialRampToValueAtTime(.048*strength*profile.brightness/(index+1),when+.003);
+            gain.gain.exponentialRampToValueAtTime(.0001,when+length);
+            oscillator.connect(gain);gain.connect(audio.destination);
+            oscillator.start(when);oscillator.stop(when+length+.01);
+          });
+          const buffer=audio.createBuffer(1,Math.ceil(audio.sampleRate*.025),audio.sampleRate);
+          const data=buffer.getChannelData(0);for(let i=0;i<data.length;i++)data[i]=Math.random()*2-1;
+          const click=audio.createBufferSource(),filter=audio.createBiquadFilter(),clickGain=audio.createGain();
+          click.buffer=buffer;filter.type='highpass';filter.frequency.value=1700*profile.brightness;
+          clickGain.gain.setValueAtTime(.035*strength,when);
+          clickGain.gain.exponentialRampToValueAtTime(.0001,when+.023);
+          click.connect(filter);filter.connect(clickGain);clickGain.connect(audio.destination);click.start(when);
+        }
+      }catch{}
+    });
+  }
+  const fresh=()=>({coins:0,levels:Object.fromEntries(defs.map(b=>[b.id,b.id==='hut'?1:0])),last:Date.now()});
+  function load(){
+    try{
+      const old=JSON.parse(localStorage.getItem(KEY));
+      if(!old || typeof old!=='object') return fresh();
+      const data=fresh();
+      data.coins=Math.max(0,Number(old.coins)||0);
+      for(const b of defs) data.levels[b.id]=Math.max(0,Math.floor(Number(old.levels?.[b.id])||0));
+      data.last=Number.isFinite(Number(old.last))?Math.min(Date.now(),Math.max(0,Number(old.last))):Date.now();
+      return data;
+    }catch{return fresh()}
+  }
+  let state=load(), toastTimer=0, lastDrawnBuildings='';
+  const fmt=n=>Math.floor(n).toLocaleString('zh-CN');
+  const income=()=>defs.reduce((n,b)=>n+b.rate*state.levels[b.id],0);
+  const cost=b=>Math.floor(b.base*Math.pow(1.48,state.levels[b.id]));
+  function save(){state.last=Date.now();try{localStorage.setItem(KEY,JSON.stringify(state))}catch{}}
+  function toast(message){const t=el('toast');t.textContent=message;t.classList.add('show');clearTimeout(toastTimer);toastTimer=setTimeout(()=>t.classList.remove('show'),1800)}
+  function settle(){
+    const seconds=Math.min(28800,Math.max(0,(Date.now()-state.last)/1000));
+    const earned=Math.floor(seconds*income());
+    state.coins+=earned;
+    save();
+    return earned;
+  }
+  function drawUI(){
+    el('balance').textContent=fmt(state.coins);
+    el('rate').textContent='+'+fmt(income())+' / 秒';
+    const whole=Math.floor(state.coins);
+    for(const d of denominations){
+      const count=d.value===100000?Math.floor(whole/d.value):Math.floor(whole/d.value)%10;
+      el('count-'+d.value).textContent=fmt(count);
+    }
+    for(const button of el('buildings').querySelectorAll('button[data-id]')){
+      const b=defs.find(item=>item.id===button.dataset.id);
+      button.classList.toggle('cant',state.coins<cost(b));
+    }
+  }
+  function drawBuildings(){
+    const signature=defs.map(b=>state.levels[b.id]).join(',');
+    if(signature===lastDrawnBuildings)return;
+    lastDrawnBuildings=signature;
+    el('buildings').innerHTML=defs.map(b=>{
+      const level=state.levels[b.id];
+      return `<article class="card"><button class="icon" data-preview="${b.id}" aria-label="试听${b.name}音效" title="试听建筑音效">${b.icon}</button><div class="details"><div class="name">${b.name}<span class="level">Lv.${level}</span></div><div class="output">当前 +${fmt(level*b.rate)} / 秒 · 下一级 +${fmt(b.rate)} / 秒</div></div><button class="buy" data-id="${b.id}">${level?'升级':'建造'}<span>🪙 ${fmt(cost(b))}</span></button></article>`;
+    }).join('');
+  }
+  function render(){drawBuildings();drawUI();drawTown()}
+  function buy(id){
+    const b=defs.find(item=>item.id===id);if(!b)return;
+    const price=cost(b);
+    if(state.coins<price){toast('金币不够，再积攒一会儿');return}
+    state.coins-=price;state.levels[id]++;save();render();playSound(buildingSounds[id]);
+    toast(b.name+(state.levels[id]===1?'建成了！':'升级成功！'));
+  }
+  function collect(event){
+    state.coins++;save();drawUI();spawnPop(event);drawTown();playCoin(1);
+  }
+  function spawnPop(event){
+    const wrap=el('scene'),pop=document.createElement('span');pop.className='pop';pop.textContent='+1 🪙';
+    const bounds=wrap.getBoundingClientRect();
+    const x=event?.clientX?event.clientX-bounds.left:bounds.width/2;
+    const y=event?.clientY?event.clientY-bounds.top:bounds.height*.57;
+    pop.style.left=Math.min(bounds.width-60,Math.max(16,x))+'px';
+    pop.style.top=Math.min(bounds.height-45,Math.max(20,y))+'px';
+    wrap.appendChild(pop);setTimeout(()=>pop.remove(),800);
+  }
+  const canvas=el('town'),ctx=canvas.getContext('2d');
+  function shape(points,fill,stroke='#684b32',line=2){
+    ctx.beginPath();ctx.moveTo(...points[0]);for(let i=1;i<points.length;i++)ctx.lineTo(...points[i]);ctx.closePath();
+    ctx.fillStyle=fill;ctx.fill();if(stroke){ctx.strokeStyle=stroke;ctx.lineWidth=line;ctx.lineJoin='round';ctx.stroke()}
+  }
+  function ellipse(x,y,rx,ry,fill){ctx.beginPath();ctx.ellipse(x,y,rx,ry,0,0,Math.PI*2);ctx.fillStyle=fill;ctx.fill()}
+  function tree(x,y,size=1){
+    ctx.fillStyle='#765035';ctx.fillRect(x-3*size,y-4*size,6*size,24*size);
+    ellipse(x+3*size,y-16*size,15*size,17*size,'#4b9654');
+    ellipse(x-6*size,y-22*size,15*size,16*size,'#67ae62');
+    ellipse(x+1*size,y-31*size,13*size,15*size,'#8ccb73');
+  }
+  function house(b,level){
+    const s=Math.min(1.22,1+level*.025);
+    ctx.save();ctx.translate(b.x,b.y);ctx.scale(s,s);
+    ellipse(5,4,b.kind==='farm'?44:35,10,'#395d3b44');
+    if(b.kind==='house'){
+      shape([[-28,0],[0,10],[0,-29],[-28,-38]],'#f1cd84');
+      shape([[0,10],[27,0],[27,-38],[0,-29]],'#c99c58');
+      shape([[-32,-38],[0,-59],[31,-39],[0,-25]],'#e66d50');
+      shape([[0,-25],[31,-39],[31,-32],[0,-18]],'#ad4e3a');
+      ctx.fillStyle='#895832';ctx.fillRect(-17,-21,12,23);
+      ctx.fillStyle='#b7e9ee';ctx.fillRect(10,-26,10,12);
+      ctx.fillStyle='#a7503a';ctx.fillRect(17,-56,8,20);
+      ellipse(-25,-4,5,5,'#f4a3a7');ellipse(-20,-7,4,4,'#f5d17c');
+    }else if(b.kind==='cafe'){
+      shape([[-35,0],[0,9],[0,-29],[-35,-37]],'#f5d99a');
+      shape([[0,9],[34,0],[34,-36],[0,-29]],'#caa767');
+      shape([[-39,-38],[-5,-51],[38,-39],[1,-26]],'#8a79bf');
+      shape([[-35,-23],[0,-14],[0,-5],[-35,-14]],'#f9e9d5');
+      for(let i=0;i<4;i++)shape([[-35+i*9,-23],[-27+i*9,-21],[-27+i*9,-12],[-35+i*9,-14]],'#d77b71',null);
+      ctx.fillStyle='#795239';ctx.fillRect(5,-20,15,20);
+      ellipse(-44,3,12,4,'#f6e6c1');ctx.fillStyle='#806148';ctx.fillRect(-45,-7,2,11);
+      ctx.font='bold 13px sans-serif';ctx.fillStyle='#fff7ed';ctx.fillText('☕',-15,-31);
+    }else if(b.kind==='farm'){
+      for(let i=0;i<4;i++)shape([[-48+i*8,4],[-38+i*8,-3],[-26+i*8,3],[-37+i*8,10]],'#e8bb61','#b28d40',1);
+      shape([[-29,1],[0,10],[0,-29],[-29,-38]],'#e8c48b');
+      shape([[0,10],[28,1],[28,-38],[0,-29]],'#bd9360');
+      shape([[-33,-38],[-3,-58],[32,-39],[0,-25]],'#b86c48');
+      shape([[0,-25],[32,-39],[32,-31],[0,-18]],'#864c38');
+      shape([[-12,5],[-1,8],[-1,-19],[-12,-22]],'#8d5439');
+      ctx.strokeStyle='#eecb8c';ctx.lineWidth=2;ctx.beginPath();ctx.moveTo(-12,-20);ctx.lineTo(-1,7);ctx.moveTo(-1,-18);ctx.lineTo(-12,5);ctx.stroke();
+      ctx.fillStyle='#d9c797';ctx.fillRect(32,-45,15,42);ellipse(39,-45,8,4,'#a47a54');
+      for(let i=0;i<4;i++){ctx.strokeStyle='#d7ab51';ctx.beginPath();ctx.moveTo(-53+i*6,3);ctx.lineTo(-51+i*6,-9);ctx.stroke();ellipse(-51+i*6,-10,2,4,'#f1d278')}
+    }else if(b.kind==='mine'){
+      shape([[-42,1],[-31,-27],[-13,-46],[13,-41],[37,-18],[43,3]],'#9195a2','#626572',3);
+      shape([[-31,-6],[-12,-35],[7,-32],[31,-7]],'#b9bbc4',null);
+      ellipse(0,-4,20,20,'#4a4651');ellipse(0,-2,13,15,'#292b34');
+      shape([[-26,13],[14,5],[29,8],[-12,17]],'#d6b781','#866847',2);
+      ctx.strokeStyle='#655b57';ctx.lineWidth=2;for(const dx of [-16,5,21]){ctx.beginPath();ctx.moveTo(dx,13);ctx.lineTo(dx+16,4);ctx.stroke()}
+      shape([[14,4],[30,1],[28,12],[17,14]],'#8d6949','#5b493c',2);
+      ellipse(19,14,3,3,'#3b3b40');ellipse(28,11,3,3,'#3b3b40');
+      shape([[-35,-12],[-28,-27],[-21,-9]],'#6ec7d2','#418b9c',1);
+    }else if(b.kind==='bakery'){
+      shape([[-29,0],[0,9],[0,-26],[-29,-35]],'#f1d495');
+      shape([[0,9],[28,0],[28,-35],[0,-26]],'#c99c63');
+      ellipse(0,-35,32,17,'#df9c53');
+      shape([[-33,-34],[0,-52],[32,-34],[0,-17]],'#e4a94f');
+      ctx.fillStyle='#9b5e3c';ctx.fillRect(14,-63,9,23);
+      ellipse(-10,-3,13,15,'#744636');ellipse(-10,-2,9,11,'#d77b4b');
+      ctx.fillStyle='#fff0c3';ctx.font='bold 15px sans-serif';ctx.fillText('🥐',-8,-29);
+      ellipse(26,4,9,4,'#f5d486');
+    }else if(b.kind==='bank'){
+      shape([[-35,0],[0,11],[0,-37],[-35,-48]],'#e9dda8');
+      shape([[0,11],[34,0],[34,-48],[0,-37]],'#b7a774');
+      shape([[-41,-47],[0,-70],[40,-48],[0,-27]],'#5eafa2');
+      shape([[-37,-42],[1,-28],[1,-21],[-37,-35]],'#d9c8a0');
+      for(let i=0;i<3;i++){ctx.fillStyle='#f7ebc9';ctx.fillRect(-30+i*12,-31,6,29);ellipse(-27+i*12,-32,5,3,'#e9dbb2')}
+      ctx.fillStyle='#6f654b';ctx.fillRect(11,-20,13,20);
+      ellipse(0,-50,8,7,'#f2d571');ctx.font='bold 10px sans-serif';ctx.fillStyle='#946725';ctx.fillText('✦',-4,-46);
+    }else if(b.kind==='tower'){
+      shape([[-17,0],[0,7],[0,-74],[-17,-81]],'#f5ecd6');
+      shape([[0,7],[17,0],[17,-81],[0,-74]],'#cfc3a9');
+      for(const y of [-22,-43,-64]){
+        shape([[-17,y],[0,y+7],[0,y-1],[-17,y-8]],'#e6655d',null);
+        shape([[0,y+7],[17,y],[17,y-8],[0,y-1]],'#b9524c',null);
+      }
+      shape([[-22,-80],[0,-92],[22,-81],[0,-70]],'#dc6558');
+      ctx.fillStyle='#ffed9d';ctx.fillRect(-12,-100,24,17);ctx.strokeStyle='#6f5544';ctx.lineWidth=3;ctx.strokeRect(-12,-100,24,17);
+      shape([[-17,-101],[0,-113],[17,-101]],'#df6756');
+      ctx.fillStyle='#715849';ctx.fillRect(-6,-19,12,19);
+      shape([[12,-93],[38,-100],[38,-87],[12,-84]],'#fff4ba77',null);
+    }
+    if(level>=5){ellipse(0,-66,3,3,'#ffe67d');ellipse(9,-72,2,2,'#fff6c5')}
+    ctx.restore();
+  }
+  function drawTown(){
+    const box=canvas.getBoundingClientRect();if(box.width<1)return;
+    const dpr=Math.min(window.devicePixelRatio||1,2),width=Math.round(box.width*dpr),height=Math.round(box.height*dpr);
+    if(canvas.width!==width||canvas.height!==height){canvas.width=width;canvas.height=height}
+    ctx.setTransform(width/420,0,0,height/300,0,0);ctx.clearRect(0,0,420,300);
+    ellipse(341,43,23,23,'#ffe186');ellipse(341,43,31,31,'#ffe18644');
+    ellipse(62,47,31,9,'#fff8e8');ellipse(84,50,27,8,'#fff8e8');ellipse(164,72,23,7,'#fff8e8');
+    shape([[210,91],[393,178],[210,279],[27,178]],'#a6d778','#679655',3);
+    shape([[27,178],[210,279],[210,295],[27,195]],'#9b7245','#785536',2);
+    shape([[210,279],[393,178],[393,195],[210,295]],'#755337','#64462d',2);
+    shape([[210,102],[369,178],[210,264],[51,178]],'#8dcb71','#70aa5c',1);
+    shape([[195,264],[243,264],[245,179],[217,168]],'#e7d186','#c6ad68',2);
+    shape([[53,177],[120,146],[160,165],[94,199]],'#cfe494',null);
+    shape([[267,148],[327,176],[292,195],[232,166]],'#cfe494',null);
+    ellipse(115,214,30,9,'#f2df9d');ellipse(289,227,31,9,'#f2df9d');
+    tree(65,166,.85);tree(339,214,.8);tree(299,109,.65);tree(143,245,.7);
+    const visible=defs.filter(b=>state.levels[b.id]>0).sort((a,b)=>a.y-b.y);
+    for(const b of visible)house(b,state.levels[b.id]);
+    for(let i=0;i<14;i++){const x=42+(i*53)%333,y=174+(i*29)%88;ellipse(x,y,2,2,i%2?'#fff2ae':'#e8a6a0')}
+  }
+  el('coins').innerHTML=denominations.map(d=>`<button class="denom" data-coin="${d.value}" aria-label="试听${d.label}音效"><span class="medal m${d.value}">${d.text}</span><span class="denom-info"><span class="denom-name">${d.label} · ${d.text}</span><span class="denom-count" id="count-${d.value}">0</span></span></button>`).join('');
+  el('coins').addEventListener('click',event=>{const button=event.target.closest('button[data-coin]');if(button)playCoin(button.dataset.coin)});
+  el('buildings').addEventListener('click',event=>{const preview=event.target.closest('button[data-preview]');if(preview){playSound(buildingSounds[preview.dataset.preview]);return}const button=event.target.closest('button[data-id]');if(button)buy(button.dataset.id)});
+  el('soundToggle').addEventListener('click',()=>{soundOn=!soundOn;try{localStorage.setItem('coinTownSound',soundOn?'on':'off')}catch{}syncSoundButton();if(soundOn)playCoin(1)});
+  syncSoundButton();
+  el('collect').addEventListener('click',collect);
+  canvas.addEventListener('click',collect);
+  el('reset').addEventListener('click',()=>{if(!confirm('确定重新开始？当前进度会清空。'))return;state=fresh();lastDrawnBuildings='';save();render();toast('新小镇开张了！')});
+  window.addEventListener('resize',drawTown);
+  document.addEventListener('visibilitychange',()=>{if(document.hidden){save()}else{const earned=settle();render();if(earned>0)toast('离线收获 '+fmt(earned)+' 金币')}});
+  const offline=settle();render();if(offline>0)setTimeout(()=>toast('离线收获 '+fmt(offline)+' 金币'),350);
+  setInterval(()=>{if(document.hidden)return;const now=Date.now(),elapsed=Math.min(5,Math.max(0,(now-state.last)/1000));state.coins+=elapsed*income();save();drawUI()},250);
+})();
+</script>
+</body>
+</html>
